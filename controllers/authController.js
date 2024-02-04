@@ -100,7 +100,7 @@ module.exports.loginUserCtrl = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Please verify your email" })
     }
 
-    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, `${process.env.JWT_SECRET}`, {
         expiresIn: "3d"
     })
 
