@@ -6,7 +6,7 @@ function verifyToken(req, res, next) {
     if (authToken) {
         const token = authToken.split(" ")[1]
         try {
-            const decodedPayload = jwt.verify(token, process.env.JWT_SECRET)
+            const decodedPayload = jwt.verify(token, `${process.env.JWT_SECRET}`)
             req.user = decodedPayload
             console.log(decodedPayload)
             next()
