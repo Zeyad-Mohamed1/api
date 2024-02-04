@@ -8,7 +8,6 @@ function verifyToken(req, res, next) {
         try {
             const decodedPayload = jwt.verify(token, `${process.env.JWT_SECRET}`)
             req.user = decodedPayload
-            console.log(decodedPayload)
             next()
         } catch (err) {
             return res.status(401).json({ message: "Invalid Token!" })

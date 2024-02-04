@@ -18,10 +18,8 @@ module.exports = async (userEmail, subject, htmlTemplate) => {
         }
 
         const info = await transporter.sendMail(mailOptions);
-        console.log("Email sent: " + info.response);
 
     } catch (error) {
-        console.log(error);
         throw new Error("Internal Server Error (sendEmails)");
     }
 }
