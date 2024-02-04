@@ -55,15 +55,22 @@ UserSchema.virtual("posts", {
     localField: "_id"
 })
 
+const complexityOptions = {
+    min: 8,             // الحد الأدنى لطول كلمة المرور
+    max: 100,           // الحد الأقصى لطول كلمة المرور
+    lowerCase: 1,       // الحد الأدنى لعدد الحروف الصغيرة
+    upperCase: 1,       // الحد الأدنى لعدد الحروف الكبيرة
+    numeric: 1,         // الحد الأدنى لعدد الأرقام
+    symbol: 0,          // الحد الأدنى لعدد الرموز
+    requirementCount: 4 // عدد الشروط التي يجب تلبيتها
+};
 
 // validate
 function validateRegisterUser(obj) {
     const schema = joi.object({
         username: joi.string().min(2).max(100).required(),
         email: joi.string().min(5).max(100).required().email(),
-        password: passwordComplexity({
-            max: 50,
-        }).required(),
+        password: passwordComplexity(complexityOptions).required(),
     })
 
     return schema.validate(obj)
@@ -88,9 +95,7 @@ function validateEmail(obj) {
 
 function validateNewPassword(obj) {
     const schema = joi.object({
-        password: passwordComplexity({
-            max: 50,
-        }).required(),
+        password: passwordComplexity().required(),
     })
     return schema.validate(obj)
 }
